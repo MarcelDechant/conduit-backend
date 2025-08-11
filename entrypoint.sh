@@ -19,6 +19,8 @@ if not User.objects.filter(username='$DJANGO_SUPERUSER_USERNAME').exists():
     User.objects.create_superuser('$DJANGO_SUPERUSER_USERNAME', '$DJANGO_SUPERUSER_EMAIL', '$DJANGO_SUPERUSER_PASSWORD')
 EOF
 
+echo "Collecting static files..."
+python manage.py collectstatic --noinput
 
 # Step 3: Start the Django server 
 #echo "Starting the server..."
