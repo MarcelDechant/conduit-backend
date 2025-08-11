@@ -1,30 +1,16 @@
-
-FROM python:3.6-slim AS builder
-
-WORKDIR /app
-
-
-COPY requirements.txt $WORKDIR
-
-
-RUN pip install --upgrade pip -r requirements.txt --no-cache-dir
-
-
 FROM python:3.6-slim
 
 WORKDIR /app
 
+COPY requirements.txt /app
 
-COPY --from=builder /usr/local /usr/local
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt --no-cache-dir
 
-
-COPY . $WORKDIR
-
+COPY . /app
 
 RUN chmod +x /app/entrypoint.sh
 
-
 EXPOSE 8000
-
 
 ENTRYPOINT ["sh", "/app/entrypoint.sh"]
